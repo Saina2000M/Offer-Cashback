@@ -1,17 +1,23 @@
 <script>
-let claimed = false;
+const btn = document.querySelector("button");
+const display = document.getElementById("number");
+
+// page load এ check
+window.onload = function(){
+  const saved = localStorage.getItem("cashbackAmount");
+  if(saved){
+    display.innerText = "₹" + saved;
+    btn.disabled = true;
+    btn.innerText = "CLAIMED";
+  }
+};
 
 function startCashback(){
 
-  if(claimed){
+  if(localStorage.getItem("cashbackAmount")){
     alert("আপনি ইতিমধ্যেই cashback reveal করেছেন 😊\nScreenshot নিয়ে WhatsApp করুন।");
     return;
   }
-
-  claimed = true;
-
-  const btn = document.querySelector("button");
-  const display = document.getElementById("number");
 
   btn.disabled = true;
   btn.innerText = "PROCESSING...";
@@ -27,6 +33,7 @@ function startCashback(){
     clearInterval(interval);
     let finalAmount = Math.floor(Math.random()*(100-50+1))+50;
     display.innerText = "₹" + finalAmount;
+    localStorage.setItem("cashbackAmount", finalAmount);
     btn.innerText = "CLAIMED";
   },3500);
 }
