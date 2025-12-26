@@ -1,40 +1,43 @@
 <script>
-const btn = document.querySelector("button");
-const display = document.getElementById("number");
+document.addEventListener("DOMContentLoaded", function () {
 
-// page load এ check
-window.onload = function(){
+  const btn = document.querySelector("button");
+  const display = document.getElementById("number");
+
+  // page load এ check
   const saved = localStorage.getItem("cashbackAmount");
-  if(saved){
+  if (saved) {
     display.innerText = "₹" + saved;
     btn.disabled = true;
     btn.innerText = "CLAIMED";
   }
-};
 
-function startCashback(){
+  btn.addEventListener("click", function () {
 
-  if(localStorage.getItem("cashbackAmount")){
-    alert("আপনি ইতিমধ্যেই cashback reveal করেছেন 😊\nScreenshot নিয়ে WhatsApp করুন।");
-    return;
-  }
+    if (localStorage.getItem("cashbackAmount")) {
+      alert("আপনি ইতিমধ্যেই cashback reveal করেছেন 😊\nScreenshot নিয়ে WhatsApp করুন।");
+      return;
+    }
 
-  btn.disabled = true;
-  btn.innerText = "PROCESSING...";
+    btn.disabled = true;
+    btn.innerText = "PROCESSING...";
 
-  let count = 0;
-  let interval = setInterval(()=>{
-    count += Math.floor(Math.random()*100);
-    if(count > 2000) count = Math.floor(Math.random()*2000);
-    display.innerText = "₹" + count;
-  },50);
+    let count = 0;
+    let interval = setInterval(() => {
+      count += Math.floor(Math.random() * 100);
+      if (count > 2000) count = Math.floor(Math.random() * 2000);
+      display.innerText = "₹" + count;
+    }, 50);
 
-  setTimeout(()=>{
-    clearInterval(interval);
-    let finalAmount = Math.floor(Math.random()*(100-50+1))+50;
-    display.innerText = "₹" + finalAmount;
-    localStorage.setItem("cashbackAmount", finalAmount);
-    btn.innerText = "CLAIMED";
-  },3500);
-}
+    setTimeout(() => {
+      clearInterval(interval);
+      let finalAmount = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+      display.innerText = "₹" + finalAmount;
+      localStorage.setItem("cashbackAmount", finalAmount);
+      btn.innerText = "CLAIMED";
+    }, 3500);
+
+  });
+
+});
 </script>
