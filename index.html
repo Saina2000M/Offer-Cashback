@@ -1,15 +1,27 @@
 <script>
+const btn = document.querySelector("button");
+const display = document.getElementById("number");
+
+// page load হলে check
+window.onload = function(){
+  const savedAmount = localStorage.getItem("cashbackTaken");
+  if(savedAmount){
+    display.innerText = "₹" + savedAmount;
+    btn.disabled = true;
+    btn.innerText = "CLAIMED";
+  }
+}
+
 function startCashback(){
 
-  // যদি আগে থেকেই cashback নেওয়া থাকে
   if(localStorage.getItem("cashbackTaken")){
-    alert("আপনি ইতিমধ্যেই আপনার cashback দেখে ফেলেছেন 😊\nScreenshot থাকলে WhatsApp করুন।");
+    alert("আপনি ইতিমধ্যেই cashback পেয়ে গেছেন 😊\nScreenshot থাকলে WhatsApp করুন।");
     return;
   }
 
-  let display = document.getElementById("number");
-  let count = 0;
+  btn.disabled = true;
 
+  let count = 0;
   let interval = setInterval(()=>{
     count += Math.floor(Math.random()*100);
     if(count > 2000) count = Math.floor(Math.random()*2000);
@@ -21,8 +33,8 @@ function startCashback(){
     let finalAmount = Math.floor(Math.random()*(100-50+1))+50;
     display.innerText = "₹" + finalAmount;
 
-    // এখানে mark করে দিচ্ছি যে cashback নেওয়া হয়ে গেছে
     localStorage.setItem("cashbackTaken", finalAmount);
+    btn.innerText = "CLAIMED";
 
   },3500);
 }
