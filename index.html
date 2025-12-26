@@ -1,1 +1,83 @@
-index.html
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Action Cashback</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#f4f6ff;
+text-align:center;
+padding-top:60px;
+}
+.box{
+background:#ffffff;
+width:90%;
+max-width:400px;
+margin:auto;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+.amount{
+font-size:48px;
+font-weight:bold;
+color:#2b7cff;
+margin:20px 0;
+}
+button{
+background:#2b7cff;
+color:#fff;
+border:none;
+padding:15px 25px;
+font-size:18px;
+border-radius:10px;
+cursor:pointer;
+}
+.note{
+font-size:14px;
+margin-top:15px;
+color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>🎉 Quick Action Cashback</h2>
+<p>START চাপুন এবং আপনার cashback দেখুন</p>
+
+<div class="amount" id="number">₹0</div>
+
+<button onclick="startCashback()">START</button>
+
+<p class="note">
+📸 Screenshot নিয়ে WhatsApp-এ পাঠান<br>
+Enrollment complete হলে cashback পাঠানো হবে
+</p>
+</div>
+
+<script>
+function startCashback(){
+let display = document.getElementById("number");
+let count = 0;
+
+let interval = setInterval(()=>{
+count += Math.floor(Math.random()*100);
+if(count > 2000) count = Math.floor(Math.random()*2000);
+display.innerText = "₹" + count;
+},50);
+
+setTimeout(()=>{
+clearInterval(interval);
+let finalAmount = Math.floor(Math.random()*(100-50+1))+50;
+display.innerText = "₹" + finalAmount;
+},3500);
+}
+</script>
+
+</body>
+</html>
